@@ -23,7 +23,7 @@ resource "aws_instance" "ec2" {
   }
 
     tags = {
-      name = "${var.tag[count.index]}"
+      name = "${var.ec2_name[count.index]}"
       env = "dev"
     }
 }

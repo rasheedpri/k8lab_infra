@@ -6,11 +6,6 @@ resource "aws_vpc" "vpc" {
 }
 
 
-resource "aws_vpc" "vpc" {
-  cidr_block = "172.16.1.0/24"
-
-}
-
 
 # create subnet
 

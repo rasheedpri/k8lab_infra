@@ -79,9 +79,3 @@ resource "aws_route_table" "mgmt" {
   }
 }
 
-# route table assosiation management (jenkins) subnet
-
-resource "aws_route_table_association" "mgmt" {
-  subnet_id      = "subnet-0f115bc1f0fec551a"
-  route_table_id = aws_route_table.mgmt.id
-}

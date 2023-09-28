@@ -13,7 +13,7 @@ resource "aws_network_interface" "eni" {
 
 resource "aws_instance" "ec2" {
   count         = 4
-  ami           = "ami-0a0c8eebcdd6dcbd0"
+  ami           = "ami-053b0d53c279acc90"
   instance_type = "t2.micro"
   key_name      = "lab-key"
 

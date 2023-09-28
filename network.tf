@@ -6,7 +6,6 @@ resource "aws_vpc" "vpc" {
 }
 
 
-
 # create subnet
 
 resource "aws_subnet" "subnet" {
@@ -78,4 +77,11 @@ resource "aws_route_table" "mgmt" {
     cidr_block = "0.0.0.0/0"
     gateway_id = "igw-07408cab72f026a09"
   }
+}
+
+# route table assosiation management (jenkins) subnet
+
+resource "aws_route_table_association" "dev" {
+  subnet_id      = "subnet-0f115bc1f0fec551a"
+  route_table_id = aws_route_table.mgmt.id
 }

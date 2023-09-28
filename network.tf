@@ -13,7 +13,7 @@ resource "aws_subnet" "subnet" {
   cidr_block        = "172.16.1.0/26"
 
   tags   = {
-    env  = "dev"
+    Env  = "dev"
   }
 }
 
@@ -23,7 +23,7 @@ resource "aws_subnet" "subnet" {
 
 resource "aws_vpc_peering_connection" "peering" {
   vpc_id      = aws_vpc.vpc.id
-  peer_vpc_id = "vpc-01b068a477baa5e42"
+  peer_vpc_id = "vpc-070a94f0c15512d73"
   auto_accept = true
 }
 
@@ -52,7 +52,7 @@ resource "aws_route_table" "dev" {
 
 }
 
-# route table assosiation dev subnet
+# route table association dev subnet
 
 resource "aws_route_table_association" "dev" {
   subnet_id      = aws_subnet.subnet.id
@@ -63,7 +63,7 @@ resource "aws_route_table_association" "dev" {
 # route table for management (jenkins) vpc
 
 resource "aws_route_table" "mgmt" {
-  vpc_id = "vpc-01b068a477baa5e42"
+  vpc_id = "vpc-070a94f0c15512d73"
 
     tags   = {
     Name  = "mgmt_rt"
@@ -73,9 +73,6 @@ resource "aws_route_table" "mgmt" {
     cidr_block = "172.16.1.0/26"
     vpc_peering_connection_id = aws_vpc_peering_connection.peering.id
   }
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = "igw-07408cab72f026a09"
-  }
+
 }
 

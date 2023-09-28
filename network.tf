@@ -16,3 +16,21 @@ resource "aws_subnet" "subnet" {
   }
 }
 
+
+# vpc peering
+
+
+resource "aws_vpc_peering_connection" "peering" {
+  vpc_id      = aws_vpc.vpc.id
+  peer_vpc_id = "vpc-01b068a477baa5e42"
+  auto_accept = true
+}
+
+resource "aws_vpc_peering_connection_options" "peering" {
+  vpc_peering_connection_id = aws_vpc_peering_connection.peering.id
+
+  accepter {
+    allow_remote_vpc_dns_resolution = true
+  }
+}
+

@@ -5,7 +5,8 @@ resource "aws_network_interface" "eni" {
   subnet_id   = aws_subnet.subnet.id
 
     tags = {
-      env = "dev"
+      Name = "${var.ec2_name[count.index]}"
+      Env = "dev"
     }
 }
 
@@ -23,8 +24,8 @@ resource "aws_instance" "ec2" {
   }
 
     tags = {
-      name = "${var.ec2_name[count.index]}"
-      env = "dev"
+      Name = "${var.ec2_name[count.index]}"
+      Env = "dev"
     }
 }
 

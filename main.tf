@@ -16,6 +16,3 @@ resource "local_file" "ansible_inventory" {
 
 
 
-data "aws_instances" "ip" {
-  instance_ids = [aws_instance.ec2.id]
-}

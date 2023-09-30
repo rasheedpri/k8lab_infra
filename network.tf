@@ -60,19 +60,11 @@ resource "aws_route_table_association" "dev" {
 }
 
 
-# route table for management (jenkins) vpc
 
-resource "aws_route_table" "mgmt" {
-  vpc_id = "vpc-070a94f0c15512d73"
+# aad route to route table in management (jenkins) vpc
 
-    tags   = {
-    Name  = "mgmt_rt"
-  }
-
-  route {
-    cidr_block = "172.16.1.0/26"
-    vpc_peering_connection_id = aws_vpc_peering_connection.peering.id
-  }
-
+resource "aws_route" "route" {
+  route_table_id            = "rtb-0b1a2977fe7ad5e1d"
+  destination_cidr_block    = "172.16.1.0/26"
+  vpc_peering_connection_id = aws_vpc_peering_connection.peering.id
 }
-

@@ -3,3 +3,19 @@ provider "aws" {
 }
 
 
+# Generate ansible inventory file
+
+resource "local_file" "ansible_inventory" {
+    content     =  templatefile(
+                    "${path.cwd}/ansible/hosts.tftpl", {
+                     hostname= "worker", workernode_ip =  "${data.aws_instances.example.instances[0].private_ip}",                   
+                     })
+    filename    = "${path.cwd}/hosts"
+    depends_on = [aws_instance.ec2,]
+}
+
+
+
+data "aws_instances" "ip" {
+  instance_ids = [aws_instance.ec2.id]
+}

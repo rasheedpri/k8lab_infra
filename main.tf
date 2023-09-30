@@ -8,7 +8,7 @@ provider "aws" {
 resource "local_file" "ansible_inventory" {
     content     =  templatefile(
                     "${path.cwd}/ansible/hosts.tftpl", {
-                     hostname= "worker", workernode_ip =  "${data.aws_instances.example.instances[0].private_ip}",                   
+                     hostname= "worker", workernode_ip =  "${data.aws_instances.ip.instances[0].private_ip}",                   
                      })
     filename    = "${path.cwd}/hosts"
     depends_on = [aws_instance.ec2,]

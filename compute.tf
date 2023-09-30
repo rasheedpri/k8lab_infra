@@ -30,5 +30,5 @@ resource "aws_instance" "ec2" {
 }
 
 data "aws_instances" "ip" {
-  instance_ids = [aws_instance.ec2.id]
+  instance_id = [aws_instance.ec2.id]
 }

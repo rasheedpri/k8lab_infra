@@ -3,6 +3,12 @@
 resource "aws_vpc" "vpc" {
   cidr_block = "172.16.1.0/24"
 
+  tags   = {
+
+    Name  = "dev_vpc"
+    Env  = "dev"
+  }
+
 }
 
 
@@ -13,7 +19,9 @@ resource "aws_subnet" "subnet" {
   cidr_block        = "172.16.1.0/26"
 
   tags   = {
-    env  = "dev"
+
+    Name  = "dev_subnet"
+    Env  = "dev"
   }
 }
 
@@ -41,8 +49,8 @@ resource "aws_vpc_peering_connection_options" "peering" {
 resource "aws_route_table" "dev" {
   vpc_id = aws_vpc.vpc.id
 
-    tags   = {
-    Name  = "dev_rt"
+  tags   = {
+    Name  = "dev_subnet_rt"
   }
 
   route {

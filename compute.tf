@@ -29,6 +29,6 @@ resource "aws_instance" "ec2" {
     }
 }
 
-data "aws_instances" "ip" {
-  instance_id = [aws_instance.ec2.id]
+data "aws_network_interface" "eni" {
+  id = aws_network_interface.eni.id
 }

@@ -30,5 +30,7 @@ resource "aws_instance" "ec2" {
 }
 
 data "aws_network_interface" "eni" {
-  id = aws_network_interface.eni[0].id
+  count = 4
+  id = aws_network_interface.eni[count.index].id
+
 }

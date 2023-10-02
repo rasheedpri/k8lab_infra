@@ -32,32 +32,14 @@ resource "aws_instance" "ec2" {
 }
 
 data "aws_network_interface" "k8master" {
-  filter {
-    name   = "id"
-    values = [aws_network_interface.eni[0].id]
-  }
-  tags = {
-    Role = "k8master"
-  }
+  id = aws_network_interface.eni[0].id
 }
 
 data "aws_network_interface" "k8worker" {
   count = 2
-  filter {
-    name   = "id"
-    values = [aws_network_interface.eni[count.index+1].id]
-  }
-  tags = {
-    Role = "k8worker"
-  }
+  id = aws_network_interface.eni[count.index+1].id
 }
 
 data "aws_network_interface" "jenkins" {
-  filter {
-    name   = "id"
-    values = [aws_network_interface.eni[3].id]
-  }  
-  tags = {
-    Role = "jenkins"
-  }
+  id = aws_network_interface.eni[3].id
 }

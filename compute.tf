@@ -7,6 +7,7 @@ resource "aws_network_interface" "eni" {
     tags = {
       Name = "${var.ec2_name[count.index]}"
       Env = "dev"
+      Role = "${var.ec2_role[count.index]}"
     }
 }
 

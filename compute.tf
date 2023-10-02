@@ -49,6 +49,6 @@ data "aws_network_interface" "k8master" {
     values = [aws_network_interface.eni[count.index].id]
   }
     tags = {
-      Role = "k8master"
+      Role = "k8_master"
     }
 }

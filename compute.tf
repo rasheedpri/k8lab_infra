@@ -26,11 +26,24 @@ resource "aws_instance" "ec2" {
     tags = {
       Name = "${var.ec2_name[count.index]}"
       Env = "dev"
+      Role = "${var.ec2_role[count.index]}"
     }
 }
 
-data "aws_network_interface" "eni" {
-  count = 4
-  id = aws_network_interface.eni[count.index].id
+data "aws_network_interface" "k8master" {
+  tags = {
+    Name = "k8master"
+  }
+}
 
+data "aws_network_interface" "k8worker" {
+  tags = {
+    Role = "k8worker"
+  }
+}
+
+data "aws_network_interface" "jenkins" {
+  tags = {
+    Role = "jenkins"
+  }
 }

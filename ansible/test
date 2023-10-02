@@ -2,9 +2,9 @@
 control1 ansible_host=172.16.0.12 ansible_user=ubuntu 
 
 [workers]
-
+%{ for index, ip in workernode_ip ~}
 ${hostname}${index+1} ansible_host=${ip} ansible_user=ubuntu
-
+%{ endfor ~}
 
 [all:vars]
 ansible_python_interpreter=/usr/bin/python3

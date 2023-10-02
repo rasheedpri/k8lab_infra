@@ -42,13 +42,13 @@ data "aws_network_interface" "k8worker" {
     }
 }
 
-# data "aws_network_interface" "k8master" {
-#   count = 4
-#   filter {
-#     name = "network-interface-id"
-#     values = [aws_network_interface.eni[count.index].id]
-#   }
-#     tags = {
-#       Role = "k8worker"
-#     }
-# }
+data "aws_network_interface" "k8master" {
+  count = 4
+  filter {
+    name = "network-interface-id"
+    values = [aws_network_interface.eni[count.index].id]
+  }
+    tags = {
+      Role = "k8master"
+    }
+}

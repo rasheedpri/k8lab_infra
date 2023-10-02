@@ -32,7 +32,8 @@ resource "aws_instance" "ec2" {
 }
 
 data "aws_network_interface" "k8master" {
-  id = aws_network_interface.eni.id
+  count = 4
+  id = aws_network_interface.eni[count.index].id
 }
 
 # data "aws_network_interface" "k8worker" {

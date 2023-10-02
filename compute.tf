@@ -32,13 +32,15 @@ resource "aws_instance" "ec2" {
 }
 
 data "aws_network_interface" "k8worker" {
-count = 4
-id = aws_network_interface.eni[count.index].id
-    filter {
-      name   = "tag:Role"
-      values = ["k8worker"]
+  count = 2
+  filter {
+    name = "network-interface-id"
+    values = [aws_network_interface.eni[count.index].id]
+  }
+    tags = {
+      Role = "k8worker"
     }
-}
+
 # data "aws_network_interface" "k8worker" {
 #   count = 2
 #   id = aws_network_interface.eni[count.index+1].id

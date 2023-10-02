@@ -55,7 +55,7 @@ data "aws_network_interface" "k8worker" {
 data "aws_network_interface" "jenkins" {
   filter {
     name   = "id"
-    values = [aws_network_interface.eni[2].id]
+    values = [aws_network_interface.eni[3].id]
   }  
   tags = {
     Role = "jenkins"

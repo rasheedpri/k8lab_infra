@@ -34,7 +34,7 @@ resource "aws_instance" "ec2" {
 data "aws_network_interface" "k8worker" {
 
     tags = {
-      Role = "k8worker"
+      Role = "k8_worker"
     }
 }
 # data "aws_network_interface" "k8worker" {

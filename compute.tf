@@ -32,14 +32,14 @@ resource "aws_instance" "ec2" {
 }
 
 data "aws_network_interface" "k8master" {
-  id = aws_network_interface.eni[0].id
+  id = aws_network_interface.eni.id
 }
 
-data "aws_network_interface" "k8worker" {
-  count = 2
-  id = aws_network_interface.eni[count.index+1].id
-}
+# data "aws_network_interface" "k8worker" {
+#   count = 2
+#   id = aws_network_interface.eni[count.index+1].id
+# }
 
-data "aws_network_interface" "jenkins" {
-  id = aws_network_interface.eni[3].id
-}
+# data "aws_network_interface" "jenkins" {
+#   id = aws_network_interface.eni[3].id
+# }

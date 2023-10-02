@@ -8,9 +8,9 @@ provider "aws" {
 resource "local_file" "ansible_inventory" {
     content     =  templatefile(
                     "${path.cwd}/ansible/hosts.tftpl", {
-                     k8master_ip =  "${data.aws_network_interface.k8master.*.private_ip}",
-                     hostname= "worker", k8worker_ip =  "${data.aws_network_interface.k8worker.*.private_ip}",
-                     jenkins_ip =  "${data.aws_network_interface.jenkins.*.private_ip}"                   
+                     k8master_ip =  "${data.aws_network_interface.k8master.[*].private_ip}",
+                     hostname= "worker", k8worker_ip =  "${data.aws_network_interface.k8worker.[*].private_ip}",
+                     jenkins_ip =  "${data.aws_network_interface.jenkins.[*].private_ip}"                   
                      })
     filename    = "${path.cwd}/hosts"
     depends_on = [aws_instance.ec2,]

@@ -1,5 +1,5 @@
 [control_plane]
-%{ for index, ip in k8master_ip ~}
+%{ for ip in k8master_ip ~}
 control1 ansible_host=${ip} ansible_user=ubuntu 
 %{ endfor ~}
 

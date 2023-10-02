@@ -34,11 +34,8 @@ resource "aws_instance" "ec2" {
 data "aws_network_interface" "k8worker" {
     count = 4
     filter {
-      name = "id"
-      values= [aws_network_interface.eni[count.index].id]
-    }
-    tags = {
-      Name = "dev_k8_worker1"
+      name = "tag-key"
+      values= "dev_k8_worker1"
     }
 }
 # data "aws_network_interface" "k8worker" {

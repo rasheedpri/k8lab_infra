@@ -34,7 +34,7 @@ resource "aws_instance" "ec2" {
 data "aws_network_interface" "k8worker" {
     filter {
       name = "id"
-      vlues= [aws_network_interface.eni.id]
+      values= [aws_network_interface.eni.id]
     }
     tags = {
       Name = "dev_k8_worker1"

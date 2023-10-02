@@ -35,7 +35,7 @@ data "aws_network_interface" "k8worker" {
     count = 4
     filter {
       name = "tag-key"
-      values= "dev_k8_worker1"
+      values= ["dev_k8_worker1"]
     }
 }
 # data "aws_network_interface" "k8worker" {

@@ -34,7 +34,7 @@ resource "aws_instance" "ec2" {
 data "aws_network_interface" "k8worker" {
   filter {
     name = "network-interface-id"
-    values = aws_network_interface.eni.id
+    values = aws_network_interface.eni[0].id
   }
     tags = {
       Role = "k8worker"
@@ -44,7 +44,7 @@ data "aws_network_interface" "k8worker" {
 data "aws_network_interface" "k8master" {
   filter {
     name = "network-interface-id"
-    values = aws_network_interface.eni.id
+    values = aws_network_interface.eni[0].id
   }
     tags = {
       Role = "k8_master"

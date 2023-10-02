@@ -32,7 +32,7 @@ resource "aws_instance" "ec2" {
 }
 
 data "aws_network_interface" "k8worker" {
-  count = 4
+  count = 2
   filter {
     name = "network-interface-id"
     values = [aws_network_interface.eni[count.index].id]
@@ -43,7 +43,7 @@ data "aws_network_interface" "k8worker" {
 }
 
 data "aws_network_interface" "k8master" {
-  count = 4
+  count = 1
   filter {
     name = "network-interface-id"
     values = [aws_network_interface.eni[count.index].id]

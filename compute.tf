@@ -32,7 +32,7 @@ resource "aws_instance" "ec2" {
 
 data "aws_network_interface" "k8master" {
   tags = {
-    Name = "k8master"
+    Role = "k8master"
   }
 }
 

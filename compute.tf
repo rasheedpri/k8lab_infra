@@ -32,7 +32,7 @@ resource "aws_instance" "ec2" {
 }
 
 data "aws_network_interface" "k8worker" {
-  count = 2
+  count = 4
   filter {
     name = "network-interface-id"
     values = [aws_network_interface.eni[count.index].id]
@@ -41,11 +41,14 @@ data "aws_network_interface" "k8worker" {
       Role = "k8worker"
     }
 }
-# data "aws_network_interface" "k8worker" {
-#   count = 2
-#   id = aws_network_interface.eni[count.index+1].id
-# }
 
-# data "aws_network_interface" "jenkins" {
-#   id = aws_network_interface.eni[3].id
+# data "aws_network_interface" "k8master" {
+#   count = 4
+#   filter {
+#     name = "network-interface-id"
+#     values = [aws_network_interface.eni[count.index].id]
+#   }
+#     tags = {
+#       Role = "k8worker"
+#     }
 # }

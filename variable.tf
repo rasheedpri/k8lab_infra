@@ -3,5 +3,5 @@ variable "ec2_name" {
 }
 
 variable "ec2_role" {
-    default = ["k8_master","k8_worker","k8worker","jenkins"]
+    default = ["k8_master","k8worker","k8worker","jenkins"]
 }

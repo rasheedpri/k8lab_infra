@@ -33,8 +33,9 @@ resource "aws_instance" "ec2" {
 
 data "aws_network_interface" "k8worker" {
   count = 2
-  id = aws_network_interface.eni[count.index+1].id
-}
+    tags = {
+      Role = "k8worker"
+    }
 
 # data "aws_network_interface" "k8worker" {
 #   count = 2

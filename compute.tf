@@ -105,3 +105,6 @@ data "aws_network_interface" "k8master" {
   id = aws_network_interface.k8master.id
 }
 
+data "aws_network_interface" "jenkins" {
+  id = aws_network_interface.jenkins.id
+}

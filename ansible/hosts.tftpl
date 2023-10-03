@@ -1,11 +1,16 @@
 [control_plane]
 %{ for ip in k8master_ip ~}
-control1 ansible_host=${ip} ansible_user=ubuntu 
+k8master ansible_host=${ip} ansible_user=ubuntu 
 %{ endfor ~}
 
 [workers]
 %{ for index, ip in workernode_ip ~}
 ${hostname}${index+1} ansible_host=${ip} ansible_user=ubuntu
+%{ endfor ~}
+
+[jenkins]
+%{ for ip in jenkins_ip ~}
+jenkins ansible_host=${ip} ansible_user=ubuntu
 %{ endfor ~}
 
 [all:vars]

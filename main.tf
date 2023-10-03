@@ -8,7 +8,7 @@ provider "aws" {
 resource "local_file" "ansible_inventory" {
     content     =  templatefile(
                     "${path.cwd}/ansible/hosts.tftpl", {
-                     hostname= "worker", workernode_ip =  "${data.aws_network_interface.k8worker.*.private_ip}",
+                     hostname= "worker", workernode_ip =  "${data.aws_network_interface.k8worker[0].private_ip}",
                      k8master_ip = "${data.aws_network_interface.k8master.*.private_ip}"                
                      })
     filename    = "${path.cwd}/hosts"

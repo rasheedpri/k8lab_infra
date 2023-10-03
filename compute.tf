@@ -1,3 +1,16 @@
+
+# eni for jenkins ec2
+
+resource "aws_network_interface" "jenkins" {
+  subnet_id   = aws_subnet.subnet.id
+
+    tags = {
+      Name = "${var.Env}_jen_agent"
+      Env = var.Env
+      Role = "jenkins"
+    }
+}
+
 # eni for k8master ec2
 
 resource "aws_network_interface" "k8master" {
@@ -22,6 +35,27 @@ resource "aws_network_interface" "k8worker" {
       Role = "k8worker"
     }
 }
+
+
+# ec2 instace for jenkis agent
+
+resource "aws_instance" "jenkins" {
+  ami           = "ami-053b0d53c279acc90"
+  instance_type = "t2.micro"
+  key_name      = "lab-key"
+
+  network_interface {
+    network_interface_id = aws_network_interface.jenkins.id
+    device_index         = 0
+  }
+
+    tags = {
+      Name = "${var.Env}_jen_agent"
+      Env = var.Env
+      Role = "jenkins"
+    }
+}
+
 
 # ec2 instace for k8 master
 

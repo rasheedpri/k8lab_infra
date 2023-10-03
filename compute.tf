@@ -45,6 +45,7 @@ resource "aws_instance" "k8master" {
 # ec2 instace for k8 worker nodes
 
 resource "aws_instance" "k8worker" {
+  count = 2
   ami           = "ami-053b0d53c279acc90"
   instance_type = "t2.micro"
   key_name      = "lab-key"
@@ -63,7 +64,7 @@ resource "aws_instance" "k8worker" {
 
 data "aws_network_interface" "k8worker" {
   count = 2
-  id = aws_network_interface.k8worker.id
+  id = aws_network_interface.k8worker[count.index].id
 }
 
 data "aws_network_interface" "k8master" {

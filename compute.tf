@@ -32,7 +32,6 @@ resource "aws_instance" "ec2" {
 }
 
 data "aws_network_interface" "k8worker" {
-  count = 2
   filter {
     name = "tag:Role"
     values = ["k8worker"]

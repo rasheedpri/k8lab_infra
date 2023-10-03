@@ -51,7 +51,7 @@ resource "aws_instance" "k8worker" {
   key_name      = "lab-key"
 
   network_interface {
-    network_interface_id = aws_network_interface.k8master.id
+    network_interface_id = aws_network_interface.k8worker.id
     device_index         = 0
   }
 

@@ -12,5 +12,5 @@ resource "local_file" "ansible_inventory" {
                      k8master_ip = "${data.aws_network_interface.k8master.*.private_ip}"                
                      })
     filename    = "${path.cwd}/hosts"
-    depends_on = [aws_instance.ec2,]
+    depends_on = [aws_instance.k8master,aws_instance.k8worker]
 }

@@ -33,20 +33,14 @@ resource "aws_instance" "ec2" {
 
 data "aws_network_interface" "k8worker" {
   filter {
-    name = "subnet-id"
-    values = [aws_subnet.subnet.id]
+    name = "tags:Role"
+    values = [k8worker]
   }
-    tags = {
-      Role = "k8worker"
-    }
 }
 
 data "aws_network_interface" "k8master" {
   filter {
-    name = "subnet-id"
-    values = [aws_subnet.subnet.id]
+    name = "tags:Role"
+    values = [k8_master]
   }
-    tags = {
-      Role = "k8_master"
-    }
 }

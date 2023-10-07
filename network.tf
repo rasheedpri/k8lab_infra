@@ -59,7 +59,7 @@ resource "aws_route_table" "dev" {
   }
 
   route {
-    cidr_block = "0.0.0.0"
+    cidr_block = "0.0.0.0/0"
     nat_gateway_id  = "nat-0056d77e9128c35c5"
   }
 

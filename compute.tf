@@ -44,7 +44,7 @@ resource "aws_instance" "jenkins" {
   ami           = "ami-053b0d53c279acc90"
   instance_type = "t2.micro"
   key_name      = "lab-key"
-  security_groups = [aws_security_group.k8nodes] 
+  security_groups = [aws_security_group.k8nodes.name] 
   network_interface {
     network_interface_id = aws_network_interface.jenkins.id
     device_index         = 0

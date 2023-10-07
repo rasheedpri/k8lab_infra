@@ -1,6 +1,6 @@
-resource "aws_security_group" "k8nodes" {
-  name        = "k8nodes_sg"
-  description = "Allow inbound traffic"
+resource "aws_security_group" "management" {
+  name        = "management_sg"
+  description = "Allow inbound management traffic"
   vpc_id      = aws_vpc.vpc.id
 
   ingress {
@@ -12,6 +12,7 @@ resource "aws_security_group" "k8nodes" {
   }
 
   tags = {
-    Name = "Allow inbound traffic"
+    Name = "Allow inbound  management traffic"
   }
 }
+

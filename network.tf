@@ -58,6 +58,11 @@ resource "aws_route_table" "dev" {
     vpc_peering_connection_id = aws_vpc_peering_connection.peering.id
   }
 
+  route {
+    cidr_block = "0.0.0.0"
+    nat_gateway_id  = "nat-0056d77e9128c35c5"
+  }
+
 }
 
 # route table assosiation dev subnet

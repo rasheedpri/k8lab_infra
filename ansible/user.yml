@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: k8cluster
   become: yes
   tasks:
     - name: create the 'k8admin' user

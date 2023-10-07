@@ -21,6 +21,7 @@ resource "aws_network_interface" "k8master" {
       Env = var.Env
       Role = "k8master"
     }
+
 }
 
 # eni for k8worker nodes
@@ -43,7 +44,7 @@ resource "aws_instance" "jenkins" {
   ami           = "ami-053b0d53c279acc90"
   instance_type = "t2.micro"
   key_name      = "lab-key"
-
+  security_groups = [aws_security_group.k8nodes] 
   network_interface {
     network_interface_id = aws_network_interface.jenkins.id
     device_index         = 0

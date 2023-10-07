@@ -15,7 +15,6 @@ resource "aws_network_interface" "jenkins" {
 
 resource "aws_network_interface" "k8master" {
   subnet_id   = aws_subnet.subnet.id
-  security_groups = [aws_security_group.k8nodes.id] 
 
     tags = {
       Name = "${var.Env}_k8master"

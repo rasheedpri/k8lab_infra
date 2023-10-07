@@ -55,8 +55,9 @@ resource "aws_network_interface" "k8worker" {
 # security group attachment for k8worker
 
 resource "aws_network_interface_sg_attachment" "k8worker" {
+  count = 2
   security_group_id    = aws_security_group.management.id
-  network_interface_id = aws_network_interface.k8worker.id
+  network_interface_id = aws_network_interface.k8worker[count.index].id
 }
 
 

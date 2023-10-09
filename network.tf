@@ -1,4 +1,4 @@
-# create vpc
+# create dev vpc
 
 resource "aws_vpc" "vpc" {
   cidr_block = "172.16.1.0/24"
@@ -6,22 +6,34 @@ resource "aws_vpc" "vpc" {
   tags   = {
 
     Name  = "dev_vpc"
-    Env  = "dev"
+    Env  = var.Env
   }
 
 }
 
+# create private subnet
 
-# create subnet
-
-resource "aws_subnet" "subnet" {
+resource "aws_subnet" "pub_subnet" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = "172.16.1.0/26"
 
   tags   = {
 
     Name  = "dev_subnet"
-    Env  = "dev"
+    Env  = var.Env
+  }
+}
+
+# create private subnet
+
+resource "aws_subnet" "priv_subnet" {
+  vpc_id            = aws_vpc.vpc.id
+  cidr_block        = "172.16.1.64/26"
+
+  tags   = {
+
+    Name  = "dev_subnet"
+    Env  = var.Env
   }
 }
 
@@ -63,7 +75,7 @@ resource "aws_route_table" "dev" {
 # route table assosiation dev subnet
 
 resource "aws_route_table_association" "dev" {
-  subnet_id      = aws_subnet.subnet.id
+  subnet_id      = aws_subnet.priv_subnet.id
   route_table_id = aws_route_table.dev.id
 }
 
@@ -76,3 +88,14 @@ resource "aws_route" "route" {
   vpc_peering_connection_id = aws_vpc_peering_connection.peering.id
 }
 
+# igw for dev vpc
+
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.vpc.id
+
+  tags = {
+    Env = var.Env
+  }
+}
+
+# nat gateway 

@@ -99,7 +99,7 @@ resource "aws_route_table" "priv" {
   }
 
   route {
-    cidr_block = "172.16.0.0/26"
+    cidr_block = "172.16.0.0/25"
     vpc_peering_connection_id = aws_vpc_peering_connection.peering.id
   }
 

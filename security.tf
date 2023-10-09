@@ -11,6 +11,12 @@ resource "aws_security_group" "management" {
     cidr_blocks      = ["172.16.0.0/26"]
   }
 
+  ingress {
+    description      = "SSH from Jenkins Master"
+    protocol         = "icmp"
+    cidr_blocks      = ["172.16.0.0/26"]
+  }
+
   tags = {
     Name = "Allow inbound  management traffic"
   }

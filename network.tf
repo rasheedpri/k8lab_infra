@@ -90,7 +90,7 @@ resource "aws_route_table" "priv" {
   vpc_id = aws_vpc.vpc.id
 
   tags   = {
-    Name  = "dev_subnet_rt"
+    Name  = "priv_subnet_rt"
   }
 
   route {
@@ -120,7 +120,7 @@ resource "aws_route_table" "public" {
   vpc_id = aws_vpc.vpc.id
 
   tags   = {
-    Name  = "dev_subnet_rt"
+    Name  = "public_subnet_rt"
   }
 
 
@@ -131,6 +131,13 @@ resource "aws_route_table" "public" {
   }
 
 
+}
+
+# route table assosiation dev subnet
+
+resource "aws_route_table_association" "public" {
+  subnet_id      = aws_subnet.priv_subnet.id
+  route_table_id = aws_route_table.public.id
 }
 
 

@@ -110,7 +110,7 @@ resource "aws_route_table" "priv" {
 
 resource "aws_route_table_association" "priv" {
   subnet_id      = aws_subnet.priv_subnet.id
-  route_table_id = aws_route_table.dev.id
+  route_table_id = aws_route_table.priv.id
 }
 
 

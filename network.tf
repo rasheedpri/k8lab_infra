@@ -88,7 +88,7 @@ resource "aws_route" "route" {
   vpc_peering_connection_id = aws_vpc_peering_connection.peering.id
 }
 
-# igw for dev vpc
+# create igw for dev vpc
 
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.vpc.id
@@ -98,4 +98,19 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
+# eip for nat gateway
+
+resource "aws_eip" "nat" {
+  domain   = "vpc"
+}
+
 # nat gateway 
+
+resource "aws_nat_gateway" "nat" {
+  allocation_id = aws_eip.nat.id
+  subnet_id     = aws_subnet.pub_subnet.id
+
+  tags = {
+    Env = var.Env
+  }
+}

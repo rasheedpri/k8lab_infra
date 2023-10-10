@@ -2,16 +2,16 @@
 - hosts: k8cluster
   become: yes
   tasks:
-    - name: create the 'ubuntu2' user
-      user: name=ubuntu2 append=yes state=present createhome=yes shell=/bin/bash
+    - name: create the 'k8admin' user
+      user: name=k8admin append=yes state=present createhome=yes shell=/bin/bash
 
-    - name: allow 'ubuntu2' to have passwordless sudo
+    - name: allow 'k8admin' to have passwordless sudo
       lineinfile:
         dest: /etc/sudoers
-        line: 'ubuntu2 ALL=(ALL) NOPASSWD: ALL'
+        line: 'k8admin ALL=(ALL) NOPASSWD: ALL'
         validate: 'visudo -cf %s'
 
-    - name: set up authorized keys for the ubuntu2 user
-      authorized_key: user=ubuntu2 key="{{item}}"
+    - name: set up authorized keys for the k8admin user
+      authorized_key: user=k8admin key="{{item}}"
       with_file:
         - ~/.ssh/id_rsa.pub

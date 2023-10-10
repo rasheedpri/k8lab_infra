@@ -1,5 +1,5 @@
 ---
-- hosts: control_plane
+- hosts: k8master
   become: yes
   tasks:
     - name: initialize the cluster

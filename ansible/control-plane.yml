@@ -12,7 +12,7 @@
       become: yes
       become_user: root
       file:
-        path: $HOME/.kube
+        path: /home/k8admin/.kube
         state: directory
         mode: 0755
 

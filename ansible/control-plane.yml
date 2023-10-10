@@ -10,7 +10,7 @@
 
     - name: create .kube directory
       become: yes
-      become_user: k8admin
+      become_user: ubuntu
       file:
         path: $HOME/.kube
         state: directory

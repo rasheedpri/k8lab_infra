@@ -1,9 +1,9 @@
 ---
-- hosts: k8master
+- hosts: control_plane
   become: yes
   tasks:
     - name: initialize the cluster
-      shell: kubeadm init --apiserver-advertise-address=172.16.1.89 --pod-network-cidr=10.244.0.0/16 >> cluster_initialized.txt
+      shell: kubeadm init --pod-network-cidr=192.168.0.0/16 >> cluster_initialized.txt
       args:
         chdir: $HOME
         creates: cluster_initialized.txt
@@ -12,7 +12,7 @@
       become: yes
       become_user: ubuntu
       file:
-        path: /home/ubuntu/.kube
+        path: $HOME/.kube
         state: directory
         mode: 0755
 
@@ -26,8 +26,8 @@
 
     - name: install Calico Pod network
       become: yes
-      become_user: root
+      become_user: ubuntu
       shell: kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml >> pod_network_setup.txt
       args:
-        chdir: /home/ubuntu
+        chdir: $HOME
         creates: pod_network_setup.txt

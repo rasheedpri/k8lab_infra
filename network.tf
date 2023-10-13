@@ -43,16 +43,16 @@ resource "aws_subnet" "priv_subnet" {
 
 resource "aws_vpc_peering_connection" "peering" {
   vpc_id      = aws_vpc.vpc.id
-  peer_vpc_id = "vpc-0e3dd3bef0e2aaf6c"
+  peer_vpc_id = "vpc-0f178dfdf3e17dac3"
   auto_accept = true
 }
 
 resource "aws_vpc_peering_connection_options" "peering" {
   vpc_peering_connection_id = aws_vpc_peering_connection.peering.id
 
-  accepter {
-    allow_remote_vpc_dns_resolution = true
-  }
+  # accepter {
+  #   allow_remote_vpc_dns_resolution = true
+  # }
 }
 
 
@@ -144,7 +144,7 @@ resource "aws_route_table_association" "public" {
 # add route to route table in management (jenkins) vpc
 
 resource "aws_route" "route" {
-  route_table_id            = "rtb-06e8fab621a30bdd4"
+  route_table_id            = "rtb-049a7f34da0ea39c7"
   destination_cidr_block    = "172.16.1.64/26"
   vpc_peering_connection_id = aws_vpc_peering_connection.peering.id
 }

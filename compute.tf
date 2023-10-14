@@ -86,7 +86,7 @@ resource "aws_instance" "jenkins" {
 
 resource "aws_instance" "k8master" {
   ami           = "ami-053b0d53c279acc90"
-  instance_type = "t2.large"
+  instance_type = "t2.micro"
   key_name      = "lab-key"
 
   network_interface {

@@ -8,5 +8,5 @@ resource "local_file" "ansible_inventory" {
       jenkins_ip  = "${data.aws_network_interface.jenkins.*.private_ip}"
   })
   filename   = "${path.cwd}/ansible/hosts"
-  depends_on = [aws_instance.k8master, aws_instance.k8worker, aws_instance.jenkins]
+  depends_on = [aws_instance.k8master1, aws_instance.k8worker, aws_instance.jenkins]
 }

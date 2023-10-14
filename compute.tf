@@ -84,7 +84,7 @@ resource "aws_instance" "jenkins" {
 
 # ec2 instace for k8 master
 
-resource "aws_instance" "k8master" {
+resource "aws_instance" "k8master1" {
   ami           = "ami-053b0d53c279acc90"
   instance_type = "t2.large"
   key_name      = "lab-key"

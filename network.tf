@@ -3,9 +3,9 @@
 resource "aws_vpc" "vpc" {
   cidr_block = "172.16.1.0/24"
 
-  tags   = {
+  tags = {
 
-    Name  = "dev_vpc"
+    Name = "dev_vpc"
     Env  = var.Env
   }
 
@@ -14,12 +14,12 @@ resource "aws_vpc" "vpc" {
 # create private subnet
 
 resource "aws_subnet" "pub_subnet" {
-  vpc_id            = aws_vpc.vpc.id
-  cidr_block        = "172.16.1.0/26"
+  vpc_id     = aws_vpc.vpc.id
+  cidr_block = "172.16.1.0/26"
 
-  tags   = {
+  tags = {
 
-    Name  = "dev_subnet"
+    Name = "dev_subnet"
     Env  = var.Env
   }
 }
@@ -27,12 +27,12 @@ resource "aws_subnet" "pub_subnet" {
 # create private subnet
 
 resource "aws_subnet" "priv_subnet" {
-  vpc_id            = aws_vpc.vpc.id
-  cidr_block        = "172.16.1.64/26"
+  vpc_id     = aws_vpc.vpc.id
+  cidr_block = "172.16.1.64/26"
 
-  tags   = {
+  tags = {
 
-    Name  = "dev_subnet"
+    Name = "dev_subnet"
     Env  = var.Env
   }
 }
@@ -43,7 +43,7 @@ resource "aws_subnet" "priv_subnet" {
 
 resource "aws_vpc_peering_connection" "peering" {
   vpc_id      = aws_vpc.vpc.id
-  peer_vpc_id = "vpc-0d995f3e98d7e8523"
+  peer_vpc_id = "vpc-01b068a477baa5e42"
   auto_accept = true
 }
 
@@ -69,7 +69,7 @@ resource "aws_internet_gateway" "igw" {
 # eip for nat gateway
 
 resource "aws_eip" "nat" {
-  domain   = "vpc"
+  domain = "vpc"
 }
 
 # nat gateway 
@@ -89,17 +89,17 @@ resource "aws_nat_gateway" "nat" {
 resource "aws_route_table" "priv" {
   vpc_id = aws_vpc.vpc.id
 
-  tags   = {
-    Name  = "priv_subnet_rt"
+  tags = {
+    Name = "priv_subnet_rt"
   }
 
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block     = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.nat.id
   }
 
   route {
-    cidr_block = "172.16.0.0/25"
+    cidr_block                = "172.16.0.0/25"
     vpc_peering_connection_id = aws_vpc_peering_connection.peering.id
   }
 
@@ -119,8 +119,8 @@ resource "aws_route_table_association" "priv" {
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.vpc.id
 
-  tags   = {
-    Name  = "public_subnet_rt"
+  tags = {
+    Name = "public_subnet_rt"
   }
 
 
@@ -144,7 +144,7 @@ resource "aws_route_table_association" "public" {
 # add route to route table in management (jenkins) vpc
 
 resource "aws_route" "route" {
-  route_table_id            = "rtb-0876bc5708c56ed21"
+  route_table_id            = "rtb-0158457a6faac9304"
   destination_cidr_block    = "172.16.1.64/26"
   vpc_peering_connection_id = aws_vpc_peering_connection.peering.id
 }

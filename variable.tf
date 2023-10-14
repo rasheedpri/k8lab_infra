@@ -1,4 +1,4 @@
 variable "Env" {
-    default = "dev"
+  default = "dev"
 }
 

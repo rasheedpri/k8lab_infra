@@ -2,8 +2,9 @@
   become: yes
   tasks:
     - name: Copy docker repo script
+      copy:
         src: repo.sh 
         dest: $HOME/repo.sh   
 
     - name: run shell script to add docker repo
-        shell: ./repo.sh
+      shell: ./repo.sh

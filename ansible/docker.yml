@@ -1,0 +1,20 @@
+- hosts: k8master
+  become: yes
+
+  tasks:
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: "deb [arch={{ dpkg_architecture }} signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+        state: present
+      vars:
+        dpkg_architecture: "{{ dpkg_architecture }}"
+        ansible_distribution_release: "{{ ansible_distribution_release }}"
+
+    - name: Update package lists
+      apt:
+        update_cache: yes

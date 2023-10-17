@@ -24,10 +24,10 @@
         owner: ubuntu
 
 
-    - name: install Calico Pod network
-      become: yes
-      become_user: ubuntu
-      shell: kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml >> pod_network_setup.txt
-      args:
-        chdir: $HOME
-        creates: pod_network_setup.txt
+    # - name: install Calico Pod network
+    #   become: yes
+    #   become_user: ubuntu
+    #   shell: kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml >> pod_network_setup.txt
+    #   args:
+    #     chdir: $HOME
+    #     creates: pod_network_setup.txt

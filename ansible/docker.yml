@@ -9,3 +9,9 @@
 
     - name: run shell script to add docker repo
       shell: $HOME/repo.sh  
+
+    - name: install Docker
+      apt:
+        name: containerd.io
+        state: present
+        update_cache: true

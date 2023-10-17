@@ -94,6 +94,13 @@ resource "aws_instance" "k8master" {
     device_index         = 0
   }
 
+  root_block_device {
+    volume_type           = "gp2" 
+    volume_size           = 40     
+    delete_on_termination = true  
+  }
+
+
     tags = {
       Name = "${var.Env}_k8master"
       Env = var.Env
@@ -112,6 +119,12 @@ resource "aws_instance" "k8worker" {
   network_interface {
     network_interface_id = aws_network_interface.k8worker[count.index].id
     device_index         = 0
+  }
+
+  root_block_device {
+    volume_type           = "gp2" 
+    volume_size           = 40     
+    delete_on_termination = true  
   }
 
     tags = {

@@ -7,4 +7,4 @@
         dest: $HOME/repo.sh   
 
     - name: run shell script to add docker repo
-      shell: ./repo.sh
+      shell: $HOME/repo.sh  

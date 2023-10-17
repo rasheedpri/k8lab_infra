@@ -63,30 +63,30 @@ resource "aws_network_interface_sg_attachment" "k8worker" {
 
 # ec2 instace for jenkis agent
 
-resource "aws_instance" "jenkins" {
-  ami           = "ami-053b0d53c279acc90"
-  instance_type = "t2.micro"
-  key_name      = "lab-key"
+# resource "aws_instance" "jenkins" {
+#   ami           = "ami-053b0d53c279acc90"
+#   instance_type = "t2.medium"
+#   key_name      = "lab-key"
   
   
-  network_interface {
-    network_interface_id = aws_network_interface.jenkins.id
-    device_index         = 0
-  }
+#   network_interface {
+#     network_interface_id = aws_network_interface.jenkins.id
+#     device_index         = 0
+#   }
 
-    tags = {
-      Name = "${var.Env}_jen_agent"
-      Env = var.Env
-      Role = "jenkins"
-    }
-}
+#     tags = {
+#       Name = "${var.Env}_jen_agent"
+#       Env = var.Env
+#       Role = "jenkins"
+#     }
+# }
 
 
 # ec2 instace for k8 master
 
 resource "aws_instance" "k8master" {
   ami           = "ami-053b0d53c279acc90"
-  instance_type = "t2.large"
+  instance_type = "t2.medium"
   key_name      = "lab-key"
 
   network_interface {

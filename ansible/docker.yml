@@ -4,7 +4,8 @@
     - name: Copy docker repo script
       copy:
         src: repo.sh 
-        dest: $HOME/repo.sh   
+        dest: $HOME/repo.sh
+        mode: 654
 
     - name: run shell script to add docker repo
       shell: $HOME/repo.sh  

@@ -1,17 +1,27 @@
 - hosts: k8master
   become: yes
+  become_user: ubuntu
+  
   tasks:
-    - name: Copy docker repo script
-      copy:
-        src: repo.sh 
-        dest: $HOME/repo.sh
-        mode: 654
 
-    - name: run shell script to add docker repo
-      shell: $HOME/repo.sh  
-
-    - name: install Docker
+    - name: install pre-requsites for docker
       apt:
-        name: containerd.io
+        name: "ca-certificates curl gnupg"
         state: present
-        update_cache: true
+
+    - name: create keyring directory
+      file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: 0755
+
+
+    - name: Add an Apt signing key to a specific keyring file
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        keyring: /etc/apt/keyrings/docker.gpg
+
+    - name: add Kubernetes' APT repository
+      apt_repository:
+        repo: "deb [arch={{ ansible_architecture }} signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable"
+        state: present

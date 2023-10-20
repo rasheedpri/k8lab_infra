@@ -108,7 +108,7 @@ resource "aws_instance" "k8master" {
   }
 }
 
-ec2 instace for k8 worker nodes
+# ec2 instace for k8 worker nodes
 
 resource "aws_instance" "k8worker" {
   count         = 2

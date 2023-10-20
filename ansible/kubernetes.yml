@@ -3,9 +3,10 @@
 
   roles:
     - docker
+    - k8dependencies
     - kubeadm
     - kubelet
-    - k8dependencies
+    
 
 - hosts: k8master
   become: yes

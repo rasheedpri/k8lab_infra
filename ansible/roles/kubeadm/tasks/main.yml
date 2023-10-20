@@ -3,9 +3,9 @@
 
 - name: install k8 packages
   apt:
-    name: kubeadm
+    name: kubeadm 
     state: present
     update_cache: yes
 
 - name: mark package as held
-  shell: sudo apt-mark hold kubeadm
+  shell: sudo apt-mark hold kubeadm  

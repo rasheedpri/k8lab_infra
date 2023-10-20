@@ -1,0 +1,9 @@
+- hosts: k8master
+  become: yes
+
+  roles:
+    - docker
+    - k8cluster
+    - k8master
+
+   

@@ -1,27 +1,47 @@
 - hosts: k8master
   become: yes
-  become_user: ubuntu
-  
+
   tasks:
 
-    - name: install pre-requsites for docker
+    - name: Install required packages
       apt:
-        name: "ca-certificates curl gnupg"
-        state: present
+        name:
+          - ca-certificates
+          - curl
+          - gnupg
+        update_cache: yes
 
-    - name: create keyring directory
+    - name: Create keyrings directory
       file:
         path: /etc/apt/keyrings
         state: directory
-        mode: 0755
+        mode: '0755'
 
-
-    - name: Add an Apt signing key to a specific keyring file
+    - name: Download Docker GPG key
       apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
         keyring: /etc/apt/keyrings/docker.gpg
 
-    - name: add Kubernetes' APT repository
-      apt_repository:
-        repo: "deb [arch={{ ansible_architecture }} signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable"
+    - name: add Docker repo
+      shell: "echo 'deb [signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable' | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null"
+
+    - name: Install required packages
+      apt:
+        name: containerd.io
         state: present
+        update_cache: yes
+
+    - name: containerd config file
+      shell: containerd config default | sudo tee /etc/containerd/config.toml
+      notify: Restart containerd
+
+    - name: change systemd 
+      shell: sudo sed -i 's/ SystemdCgroup = false/ SystemdCgroup = true/' /etc/containerd/config.toml
+      notify: Restart containerd
+
+  handlers:
+    - name: Restart containerd
+      service:
+        name: containerd
+        state: restarted

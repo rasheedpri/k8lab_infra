@@ -1,0 +1,11 @@
+---
+# tasks file for kubectl
+
+- name: install k8 packages
+  apt:
+    name: kubectl
+    state: present
+    update_cache: yes
+
+- name: mark package as held
+  shell: sudo apt-mark hold kubectl

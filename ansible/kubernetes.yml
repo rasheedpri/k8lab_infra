@@ -1,0 +1,16 @@
+- hosts: k8cluster
+  become: yes
+
+  roles:
+    - docker
+    - kubeadm
+    - kubelet
+    - k8dependencies
+
+- hosts: k8master
+  become: yes
+  roles:    
+    - control_plane
+    - kubectl
+
+   

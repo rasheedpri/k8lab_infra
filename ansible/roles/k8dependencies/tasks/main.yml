@@ -18,18 +18,6 @@
   shell: "echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list"
 
 
-- name: install k8 packages
-  apt:
-    name: 
-    - kubelet
-    - kubeadm
-    - kubectl
-    state: present
-    update_cache: yes
-
-- name: mark package as held
-  shell: sudo apt-mark hold kubelet kubeadm kubectl
-
 - name: bridge
   copy:
     src: bridge.sh

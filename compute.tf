@@ -108,31 +108,31 @@ resource "aws_instance" "k8master" {
   }
 }
 
-# ec2 instace for k8 worker nodes
+ec2 instace for k8 worker nodes
 
-# resource "aws_instance" "k8worker" {
-#   count         = 2
-#   ami           = "ami-053b0d53c279acc90"
-#   instance_type = "t2.micro"
-#   key_name      = "lab-key"
+resource "aws_instance" "k8worker" {
+  count         = 2
+  ami           = "ami-053b0d53c279acc90"
+  instance_type = "t2.micro"
+  key_name      = "lab-key"
 
-#   network_interface {
-#     network_interface_id = aws_network_interface.k8worker[count.index].id
-#     device_index         = 0
-#   }
+  network_interface {
+    network_interface_id = aws_network_interface.k8worker[count.index].id
+    device_index         = 0
+  }
 
-#   root_block_device {
-#     volume_type           = "gp2"
-#     volume_size           = 40
-#     delete_on_termination = true
-#   }
+  root_block_device {
+    volume_type           = "gp2"
+    volume_size           = 40
+    delete_on_termination = true
+  }
 
-#   tags = {
-#     Name = "${var.Env}_k8worker${count.index + 1}"
-#     Env  = var.Env
-#     Role = "k8worker"
-#   }
-# }
+  tags = {
+    Name = "${var.Env}_k8worker${count.index + 1}"
+    Env  = var.Env
+    Role = "k8worker"
+  }
+}
 
 # query eni for k8worker nodes to get private ip
 data "aws_network_interface" "k8worker" {

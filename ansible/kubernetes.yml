@@ -11,7 +11,8 @@
 - hosts: k8master
   become: yes
   roles:    
-    - control_plane
     - kubectl
+    - control_plane
+    
 
    

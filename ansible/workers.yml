@@ -12,17 +12,7 @@
       set_fact:
         join_command: "{{ join_command_raw.stdout_lines[0] }}"
 
-- hosts: worker1
-  tasks:
-    name: Set a hostname
-    ansible.builtin.hostname:
-      name: worker1
 
-- hosts: worker2
-  tasks:
-    name: Set a hostname
-    ansible.builtin.hostname:
-      name: worker2
 
 - hosts: workers
   become: yes
@@ -33,3 +23,8 @@
       args:
         chdir: $HOME
         creates: node_joined.txt
+
+
+    - name: Set a hostname
+      hostname:
+        name: "{{ inventory_hostname }}"

@@ -86,17 +86,17 @@ resource "aws_internet_gateway" "igw" {
 
 # route table for priv_subnet
 
-# resource "aws_route_table" "priv" {
-#   vpc_id = aws_vpc.vpc.id
+resource "aws_route_table" "priv" {
+  vpc_id = aws_vpc.vpc.id
 
-#   tags = {
-#     Name = "priv_subnet_rt"
-#   }
+  tags = {
+    Name = "priv_subnet_rt"
+  }
 
-#   route {
-#     cidr_block     = "0.0.0.0/0"
-#     nat_gateway_id = aws_nat_gateway.nat.id
-#   }
+  # route {
+  #   cidr_block     = "0.0.0.0/0"
+  #   nat_gateway_id = aws_nat_gateway.nat.id
+  # }
 
   route {
     cidr_block                = "172.16.0.0/25"

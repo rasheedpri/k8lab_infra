@@ -18,6 +18,12 @@
   become: yes
   
   tasks:
+
+    - name: Set a hostname
+    hostname:
+      name: "{{ inventory_hostname }}"
+
+      
     - name: join cluster
       shell: "{{ hostvars['k8master'].join_command }} >> node_joined.txt"
       args:
@@ -25,6 +31,4 @@
         creates: node_joined.txt
 
 
-    - name: Set a hostname
-      hostname:
-        name: "{{ inventory_hostname }}"
+

@@ -121,6 +121,7 @@ resource "aws_instance" "k8worker" {
   ami           = "ami-053b0d53c279acc90"
   instance_type = "t2.micro"
   key_name      = "lab-key"
+  iam_instance_profile = "k8_instance_profile"
 
   network_interface {
     network_interface_id = aws_network_interface.k8worker[count.index].id

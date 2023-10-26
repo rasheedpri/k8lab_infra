@@ -88,6 +88,7 @@ resource "aws_instance" "k8master" {
   ami           = "ami-053b0d53c279acc90"
   instance_type = "t2.medium"
   key_name      = "lab-key"
+  iam_instance_profile = "k8_instance_profile"
   
 
   network_interface {

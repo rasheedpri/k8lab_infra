@@ -1,6 +1,6 @@
 
-  resource "aws_lb" "lb" {
-  name               = "k8-cluster-lb"
+  resource "aws_lb" "elb" {
+  name               = "k8cluster-lb"
   internal           = false
   load_balancer_type = "network"
   subnets            = [aws_subnet.pub_subnet.id,aws_subnet.priv_subnet.id]
@@ -24,7 +24,7 @@ resource "aws_lb_target_group" "k8worker" {
 
 
 resource "aws_lb_listener" "webapp" {
-  load_balancer_arn = aws_lb.lb.arn
+  load_balancer_arn = aws_lb.elb.arn
   port              = "80"
   protocol          = "TCP"
 

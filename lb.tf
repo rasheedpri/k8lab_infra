@@ -5,7 +5,7 @@
   load_balancer_type = "network"
   subnets            = [aws_subnet.pub_subnet.id]
   security_groups = [aws_security_group.management.id]
-
+  ip_address_type = "ipv4"
 
   tags = {
     Environment = "dev"

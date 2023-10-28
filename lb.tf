@@ -14,7 +14,7 @@
 
 
 resource "aws_lb_target_group" "k8worker" {
-  name     = "tf-example-lb-tg"
+  name     = "k8workers"
   port     = 32524
   protocol = "HTTP"
   vpc_id   = aws_vpc.vpc.id

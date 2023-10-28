@@ -15,6 +15,7 @@
 
 resource "aws_lb_target_group" "k8worker" {
   name     = "k8workers"
+  target_type = "instance"
   port     = 32524
   protocol = "HTTP"
   vpc_id   = aws_vpc.vpc.id

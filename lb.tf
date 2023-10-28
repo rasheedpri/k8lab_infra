@@ -1,6 +1,6 @@
 # Create a new load balancer
 resource "aws_elb" "lb" {
-  name               = "k8_cluster_lb"
+  name               = "k8clusterlb"
   availability_zones = ["us-east-1d", "us-east-1a"]
   security_groups = aws_security_group.management.id
 

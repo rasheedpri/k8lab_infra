@@ -1,33 +1,38 @@
-# Create a new load balancer
-resource "aws_elb" "lb" {
-  name               = "k8clusterlb"
-  availability_zones = ["us-east-1d","us-east-1a"]
+
+  resource "aws_lb" "lb" {
+  name               = "k8-cluster-lb"
+  internal           = false
+  load_balancer_type = "network"
+  subnets            = [aws_subnet.pub_subnet.id]
   security_groups = [aws_security_group.management.id]
-  subnets = [aws_subnet.pub_subnet.id]
-  
-  listener {
-    instance_port     = 32524
-    instance_protocol = "http"
-    lb_port           = 80
-    lb_protocol       = "http"
-  }
 
-
-  health_check {
-    healthy_threshold   = 2
-    unhealthy_threshold = 2
-    timeout             = 3
-    target              = "HTTP:32524/"
-    interval            = 30
-  }
-
-  instances                   = [aws_instance.k8worker[0].id,aws_instance.k8worker[1].id]
-  cross_zone_load_balancing   = true
-  idle_timeout                = 400
-  connection_draining         = true
-  connection_draining_timeout = 400
 
   tags = {
-    Name = "k8_cluster_lb"
+    Environment = "dev"
+  }
+} 
+
+
+resource "aws_lb_target_group" "nginx" {
+  name     = "tf-example-lb-tg"
+  port     = 32524
+  protocol = "HTTP"
+  vpc_id   = aws_vpc.main.id
+}
+
+
+
+resource "aws_lb_listener" "nginx" {
+  load_balancer_arn = aws_lb.lb.arn
+  port              = "80"
+  protocol          = "HTTP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.nginx.arn
   }
 }
+
+
+
+

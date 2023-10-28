@@ -5,8 +5,8 @@ resource "aws_security_group" "management" {
 
   ingress {
     description = "SSH from Jenkins Master"
-    from_port   = 22
-    to_port     = 22
+    from_port   = 0
+    to_port     = 65534
     protocol    = "tcp"
     cidr_blocks = ["172.16.0.0/26"]
   }

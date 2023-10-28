@@ -1,9 +1,9 @@
 # Create a new load balancer
 resource "aws_elb" "lb" {
   name               = "k8clusterlb"
-  availability_zones = ["us-east-1d", "us-east-1a"]
+  availability_zones = ["us-east-1d"]
   security_groups = [aws_security_group.management.id]
-
+  subnets = [aws_subnet.pub_subnet.id]
   listener {
     instance_port     = 32524
     instance_protocol = "http"

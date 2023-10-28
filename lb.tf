@@ -16,7 +16,7 @@
 resource "aws_lb_target_group" "nginx" {
   name     = "tf-example-lb-tg"
   port     = 32524
-  protocol = "TCP"
+  protocol = "TCP_UDP"
   vpc_id   = aws_vpc.vpc.id
 }
 

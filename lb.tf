@@ -16,7 +16,7 @@
 resource "aws_lb_target_group" "nginx" {
   name     = "tf-example-lb-tg"
   port     = 32524
-  protocol = "TCP_UDP"
+  protocol = "HTTP"
   vpc_id   = aws_vpc.vpc.id
 }
 
@@ -25,7 +25,7 @@ resource "aws_lb_target_group" "nginx" {
 resource "aws_lb_listener" "nginx" {
   load_balancer_arn = aws_lb.lb.arn
   port              = "80"
-  protocol          = "HTTP"
+  protocol          = "TCP"
 
   default_action {
     type             = "forward"

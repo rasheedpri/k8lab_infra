@@ -20,7 +20,7 @@ resource "aws_elb" "lb" {
     interval            = 30
   }
 
-  instances                   = [aws_instance.k8worker[0],aws_instance.k8worker[1]]
+  instances                   = [aws_instance.k8worker[0].id,aws_instance.k8worker[1].id]
   cross_zone_load_balancing   = true
   idle_timeout                = 400
   connection_draining         = true

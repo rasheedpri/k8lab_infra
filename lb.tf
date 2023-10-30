@@ -3,7 +3,7 @@
   name               = "k8cluster-lb"
   internal           = false
   load_balancer_type = "network"
-  subnets            = [aws_subnet.pub_subnet.id,aws_subnet.priv_subnet.id]
+  subnets            = [aws_subnet.priv_subnet.id]
   security_groups = [aws_security_group.management.id]
   ip_address_type = "ipv4"
 

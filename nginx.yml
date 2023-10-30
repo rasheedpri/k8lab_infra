@@ -15,7 +15,7 @@ spec:
         app: webapp
     spec:
       containers:
-      - name: 
+      - name: webapp
         image: nginx
         ports: 
         - containerPort: 80
@@ -28,7 +28,7 @@ kind: Service
 metadata:
   name: web-lb
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: webapp
   ports:
@@ -36,3 +36,8 @@ spec:
       protocol: TCP
       port: 80
       targetPort: 80
+
+
+
+
+kubectl expose deploy nginx --type=NodePort --port=80 -target-port=80

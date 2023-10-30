@@ -17,3 +17,22 @@ resource "aws_security_group" "management" {
   }
 }
 
+
+resource "aws_security_group" "allow_http" {
+  name        = "http_inbound_sg"
+  description = "Allow inbound management traffic"
+  vpc_id      = aws_vpc.vpc.id
+
+  ingress {
+    description = "SSH from Jenkins Master"
+    from_port   = 0
+    to_port     = 65534
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+
+  tags = {
+    Name = "Allow inbound  management traffic"
+  }
+}

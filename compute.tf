@@ -98,7 +98,7 @@ resource "aws_instance" "k8master" {
 
   root_block_device {
     volume_type           = "gp2"
-    volume_size           = 40
+    volume_size           = 20
     delete_on_termination = true
   }
 
@@ -130,7 +130,7 @@ resource "aws_instance" "k8worker" {
 
   root_block_device {
     volume_type           = "gp2"
-    volume_size           = 40
+    volume_size           = 15
     delete_on_termination = true
   }
 

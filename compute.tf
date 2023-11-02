@@ -2,7 +2,7 @@
 # eni for jenkins ec2
 
 resource "aws_network_interface" "jenkins" {
-  subnet_id = aws_subnet.priv_subnet.id
+  subnet_id = aws_subnet.priv_subnet1.id
 
   tags = {
     Name = "${var.Env}_jen_agent"
@@ -22,7 +22,7 @@ resource "aws_network_interface_sg_attachment" "jenkins" {
 # eni for k8master ec2
 
 resource "aws_network_interface" "k8master" {
-  subnet_id = aws_subnet.priv_subnet.id
+  subnet_id = aws_subnet.priv_subnet1.id
 
   tags = {
     Name = "${var.Env}_k8master"
@@ -39,11 +39,11 @@ resource "aws_network_interface_sg_attachment" "k8master" {
   network_interface_id = aws_network_interface.k8master.id
 }
 
-# eni for k8worker nodes
+# eni for k8worker nodes on AZ a
 
-resource "aws_network_interface" "k8worker" {
-  count     = 2
-  subnet_id = aws_subnet.priv_subnet.id
+resource "aws_network_interface" "k8workers_az_a" {
+  count     = 1
+  subnet_id = aws_subnet.priv_subnet1.id
 
   tags = {
     Name = "${var.Env}_k8worker${count.index + 1}"
@@ -52,12 +52,34 @@ resource "aws_network_interface" "k8worker" {
   }
 }
 
-# security group attachment for k8worker
+# eni for k8worker nodes on AZ b
 
-resource "aws_network_interface_sg_attachment" "k8worker" {
-  count                = 2
+resource "aws_network_interface" "k8workers_az_b" {
+  count     = 1
+  subnet_id = aws_subnet.priv_subnet2.id
+
+  tags = {
+    Name = "${var.Env}_k8worker${count.index + 1}"
+    Env  = var.Env
+    Role = "k8worker"
+  }
+}
+
+
+# security group attachment for k8worker nodes on AZ a
+
+resource "aws_network_interface_sg_attachment" "k8workers_az_a" {
+  count                = 1
   security_group_id    = aws_security_group.management.id
-  network_interface_id = aws_network_interface.k8worker[count.index].id
+  network_interface_id = aws_network_interface.k8workers_az_a[count.index].id
+}
+
+# security group attachment for k8worker nodes on AZ b
+
+resource "aws_network_interface_sg_attachment" "k8workers_az_b" {
+  count                = 1
+  security_group_id    = aws_security_group.management.id
+  network_interface_id = aws_network_interface.k8workers_az_b[count.index].id
 }
 
 
@@ -114,17 +136,17 @@ resource "aws_instance" "k8master" {
   }
 }
 
-# ec2 instace for k8 worker nodes
+# ec2 instace for k8 worker nodes in AZ a
 
 resource "aws_instance" "k8worker" {
-  count         = 2
+  count         = 1
   ami           = "ami-053b0d53c279acc90"
   instance_type = "t2.micro"
   key_name      = "lab-key"
   iam_instance_profile = "k8_instance_profile"
 
   network_interface {
-    network_interface_id = aws_network_interface.k8worker[count.index].id
+    network_interface_id = aws_network_interface.k8workers_az_a[count.index].id
     device_index         = 0
   }
 
@@ -146,10 +168,49 @@ resource "aws_instance" "k8worker" {
   }
 }
 
-# query eni for k8worker nodes to get private ip
-data "aws_network_interface" "k8worker" {
-  count = 2
-  id    = aws_network_interface.k8worker[count.index].id
+
+# ec2 instace for k8 worker nodes in AZ b
+
+resource "aws_instance" "k8worker" {
+  count         = 1
+  ami           = "ami-053b0d53c279acc90"
+  instance_type = "t2.micro"
+  key_name      = "lab-key"
+  iam_instance_profile = "k8_instance_profile"
+
+  network_interface {
+    network_interface_id = aws_network_interface.k8workers_az_b[count.index].id
+    device_index         = 0
+  }
+
+  root_block_device {
+    volume_type           = "gp2"
+    volume_size           = 15
+    delete_on_termination = true
+  }
+
+  user_data = <<-EOF
+  #!/bin/bash
+  hostnamectl set-hostname "k8worker${count.index+1}"
+  EOF
+
+  tags = {
+    Name = "${var.Env}_k8worker${count.index + 1}"
+    Env  = var.Env
+    Role = "k8worker"
+  }
+}
+
+# query eni for k8worker nodes in AZ a to get private ip
+data "aws_network_interface" "k8workers_az_a" {
+  count = 1
+  id    = aws_network_interface.k8workers_az_a[count.index].id
+}
+
+# query eni for k8worker nodes in AZ b to get private ip
+data "aws_network_interface" "k8workers_az_b" {
+  count = 1
+  id    = aws_network_interface.k8workers_az_b[count.index].id
 }
 
 # query eni for k8master to get private ip

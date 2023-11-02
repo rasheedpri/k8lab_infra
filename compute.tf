@@ -138,7 +138,7 @@ resource "aws_instance" "k8master" {
 
 # ec2 instace for k8 worker nodes in AZ a
 
-resource "aws_instance" "k8workers_az_b" {
+resource "aws_instance" "k8workers_az_a" {
   count         = 1
   ami           = "ami-053b0d53c279acc90"
   instance_type = "t2.micro"

@@ -146,6 +146,8 @@ resource "aws_route_table" "public" {
 
 }
 
+
+
 # route table assosiation public subnet
 
 resource "aws_route_table_association" "public" {
@@ -153,6 +155,12 @@ resource "aws_route_table_association" "public" {
   route_table_id = aws_route_table.public.id
 }
 
+# route table assosiation public subnet2
+
+resource "aws_route_table_association" "public2" {
+  subnet_id      = aws_subnet.pub_subnet2.id
+  route_table_id = aws_route_table.public.id
+}
 
 # add route to route table in management (jenkins) vpc
 

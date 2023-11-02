@@ -191,11 +191,11 @@ resource "aws_instance" "k8workers_az_b" {
 
   user_data = <<-EOF
   #!/bin/bash
-  hostnamectl set-hostname "k8worker${count.index+1}"
+  hostnamectl set-hostname "k8worker${count.index+2}"
   EOF
 
   tags = {
-    Name = "${var.Env}_k8worker${count.index + 1}"
+    Name = "${var.Env}_k8worker${count.index + 2}"
     Env  = var.Env
     Role = "k8worker"
   }

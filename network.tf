@@ -184,7 +184,7 @@ resource "aws_route_table_association" "public2" {
 
 resource "aws_route" "route" {
   route_table_id            = "rtb-0158457a6faac9304"
-  destination_cidr_block    = "172.16.1.64/26"
+  destination_cidr_block    = "172.16.1.0/24"
   vpc_peering_connection_id = aws_vpc_peering_connection.peering.id
 }
 

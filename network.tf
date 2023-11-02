@@ -29,7 +29,7 @@ resource "aws_subnet" "pub_subnet" {
 resource "aws_subnet" "pub_subnet2" {
   vpc_id     = aws_vpc.vpc.id
   cidr_block = "172.16.1.128/26"
-  availability_zone = us-east-1a
+  availability_zone = "us-east-1a"
   tags = {
 
     Name = "dev_subnet"

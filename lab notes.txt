@@ -1,0 +1,31 @@
+***  AWS  ***
+
+Network:
+
+    vpc
+    subnet
+    vpc peering
+    route table
+    nat gateway
+    internet gateway
+
+
+Compute:
+
+    ec2
+    Application Loadbalancer
+
+
+
+*** DevOps ***
+
+Ansible:
+
+    playbook
+    roles
+
+Kubernetes:
+    Cluster Installation
+    Deployment
+    Service - NodePort
+

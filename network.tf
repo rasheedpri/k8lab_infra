@@ -92,22 +92,22 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
-# # eip for nat gateway
+# eip for nat gateway
 
-# resource "aws_eip" "nat" {
-#   domain = "vpc"
-# }
+resource "aws_eip" "nat" {
+  domain = "vpc"
+}
 
-# # nat gateway 
+# nat gateway 
 
-# resource "aws_nat_gateway" "nat" {
-#   allocation_id = aws_eip.nat.id
-#   subnet_id     = aws_subnet.pub_subnet1.id
+resource "aws_nat_gateway" "nat" {
+  allocation_id = aws_eip.nat.id
+  subnet_id     = aws_subnet.pub_subnet1.id
 
-#   tags = {
-#     Env = var.Env
-#   }
-# }
+  tags = {
+    Env = var.Env
+  }
+}
 
 
 # route table for priv_subnets
@@ -119,10 +119,10 @@ resource "aws_route_table" "priv" {
     Name = "priv_subnet_rt"
   }
 
-  # route {
-  #   cidr_block     = "0.0.0.0/0"
-  #   nat_gateway_id = aws_nat_gateway.nat.id
-  # }
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.nat.id
+  }
 
   route {
     cidr_block                = "172.16.0.0/25"

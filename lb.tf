@@ -1,5 +1,5 @@
 resource "aws_lb" "alb" {
-  name               = "web-lb"
+  name               = "k8lb"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.allow_http.id]

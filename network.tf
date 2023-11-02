@@ -139,7 +139,7 @@ resource "aws_route_table_association" "priv1" {
   route_table_id = aws_route_table.priv.id
 }
 
-]# route table assosiation priv subnet2
+# route table assosiation priv subnet2
 
 resource "aws_route_table_association" "priv2" {
   subnet_id      = aws_subnet.priv_subnet2.id

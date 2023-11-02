@@ -11,11 +11,24 @@ resource "aws_vpc" "vpc" {
 
 }
 
-# create private subnet
+# create public subnet
 
 resource "aws_subnet" "pub_subnet" {
   vpc_id     = aws_vpc.vpc.id
   cidr_block = "172.16.1.0/26"
+
+  tags = {
+
+    Name = "dev_subnet"
+    Env  = var.Env
+  }
+}
+
+# create public subnet2
+
+resource "aws_subnet" "pub_subnet2" {
+  vpc_id     = aws_vpc.vpc.id
+  cidr_block = "172.16.1.128/26"
 
   tags = {
 

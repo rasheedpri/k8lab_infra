@@ -40,4 +40,4 @@ spec:
 
 
 
-kubectl expose deploy nginx --type=NodePort --port=80 -target-port=80
+kubectl expose deploy nginx --type=NodePort --port=80 --target-port=80

@@ -13,10 +13,10 @@ resource "aws_vpc" "vpc" {
 
 # create public subnet
 
-resource "aws_subnet" "pub_subnet" {
+resource "aws_subnet" "pub_subnet1" {
   vpc_id     = aws_vpc.vpc.id
   cidr_block = "172.16.1.0/26"
-
+  availability_zone = "us-east-1a"
   tags = {
 
     Name = "dev_subnet"
@@ -28,8 +28,8 @@ resource "aws_subnet" "pub_subnet" {
 
 resource "aws_subnet" "pub_subnet2" {
   vpc_id     = aws_vpc.vpc.id
-  cidr_block = "172.16.1.128/26"
-  availability_zone = "us-east-1a"
+  cidr_block = "172.16.1.64/26"
+  availability_zone = "us-east-1b"
   tags = {
 
     Name = "dev_subnet"
@@ -39,9 +39,10 @@ resource "aws_subnet" "pub_subnet2" {
 
 # create private subnet
 
-resource "aws_subnet" "priv_subnet" {
+resource "aws_subnet" "priv_subnet1" {
   vpc_id     = aws_vpc.vpc.id
-  cidr_block = "172.16.1.64/26"
+  cidr_block = "172.16.1.128/26"
+  availability_zone = "us-east-1a"
 
   tags = {
 
@@ -50,6 +51,18 @@ resource "aws_subnet" "priv_subnet" {
   }
 }
 
+
+resource "aws_subnet" "priv_subnet2" {
+  vpc_id     = aws_vpc.vpc.id
+  cidr_block = "172.16.1.192/26"
+  availability_zone = "us-east-1a"
+
+  tags = {
+
+    Name = "dev_subnet"
+    Env  = var.Env
+  }
+}
 
 # vpc peering
 
@@ -89,7 +102,7 @@ resource "aws_internet_gateway" "igw" {
 
 # resource "aws_nat_gateway" "nat" {
 #   allocation_id = aws_eip.nat.id
-#   subnet_id     = aws_subnet.pub_subnet.id
+#   subnet_id     = aws_subnet.pub_subnet1.id
 
 #   tags = {
 #     Env = var.Env
@@ -97,7 +110,7 @@ resource "aws_internet_gateway" "igw" {
 # }
 
 
-# route table for priv_subnet
+# route table for priv_subnets
 
 resource "aws_route_table" "priv" {
   vpc_id = aws_vpc.vpc.id
@@ -119,13 +132,19 @@ resource "aws_route_table" "priv" {
 
 }
 
-# route table assosiation dev subnet
+# route table assosiation priv subnet1
 
-resource "aws_route_table_association" "priv" {
-  subnet_id      = aws_subnet.priv_subnet.id
+resource "aws_route_table_association" "priv1" {
+  subnet_id      = aws_subnet.priv_subnet1.id
   route_table_id = aws_route_table.priv.id
 }
 
+]# route table assosiation priv subnet2
+
+resource "aws_route_table_association" "priv2" {
+  subnet_id      = aws_subnet.priv_subnet2.id
+  route_table_id = aws_route_table.priv.id
+}
 
 # route table for public_subnet
 
@@ -147,11 +166,10 @@ resource "aws_route_table" "public" {
 }
 
 
-
-# route table assosiation public subnet
+# route table assosiation public subnet1
 
 resource "aws_route_table_association" "public" {
-  subnet_id      = aws_subnet.pub_subnet.id
+  subnet_id      = aws_subnet.pub_subnet1.id
   route_table_id = aws_route_table.public.id
 }
 

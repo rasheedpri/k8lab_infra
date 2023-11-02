@@ -1,45 +1,19 @@
-
-#   resource "aws_lb" "elb" {
-#   name               = "k8cluster-lb"
+# resource "aws_lb" "alb" {
+#   name               = "web-lb"
 #   internal           = false
-#   load_balancer_type = "network"
-#   subnets            = [aws_subnet.pub_subnet.id]
-#   security_groups = [aws_security_group.allow_http.id]
-#   ip_address_type = "ipv4"
+#   load_balancer_type = "application"
+#   security_groups    = [aws_security_group.allow_http.id]
+#   subnets            = [aws_subnet.pub_subnet1.id,aws_subnet.pub_subnet2.id]
+
+#   enable_deletion_protection = true
+
+#   access_logs {
+#     bucket  = aws_s3_bucket.lb_logs.id
+#     prefix  = "test-lb"
+#     enabled = true
+#   }
 
 #   tags = {
 #     Environment = "dev"
 #   }
-# } 
-
-
-# resource "aws_lb_target_group" "k8worker" {
-#   name     = "k8workers"
-#   target_type = "instance"
-#   port     = 32457
-#   protocol = "TCP"
-#   vpc_id   = aws_vpc.vpc.id
 # }
-
-
-
-# resource "aws_lb_listener" "webapp" {
-#   load_balancer_arn = aws_lb.elb.arn
-#   port              = "80"
-#   protocol          = "TCP"
-
-#   default_action {
-#     type             = "forward"
-#     target_group_arn = aws_lb_target_group.k8worker.arn
-#   }
-# }
-
-
-# resource "aws_lb_target_group_attachment" "test" {
-#   count = 2
-#   target_group_arn = aws_lb_target_group.k8worker.arn
-#   target_id        = aws_instance.k8worker[count.index].id
-#   port             = 32457
-# }
-
-

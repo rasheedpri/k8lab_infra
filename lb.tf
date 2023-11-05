@@ -2,7 +2,7 @@
 
 resource "aws_lb_target_group" "k8workers" {
   name     = "k8workers"
-  port     = 31795
+  port     = 31975
   protocol = "HTTP"
   vpc_id   = aws_vpc.vpc.id
   target_type = "instance"
@@ -31,7 +31,7 @@ resource "aws_lb_target_group_attachment" "k8workers_az_a" {
   count = 1
   target_group_arn = aws_lb_target_group.k8workers.arn
   target_id        = aws_instance.k8workers_az_a[count.index].id
-  port             = 31795
+  port             = 31975
 }
 
 
@@ -43,7 +43,7 @@ resource "aws_lb_target_group_attachment" "k8workers_az_b" {
   count = 1
   target_group_arn = aws_lb_target_group.k8workers.arn
   target_id        = aws_instance.k8workers_az_b[count.index].id
-  port             = 31795
+  port             = 31975
 }
 
 

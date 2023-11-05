@@ -25,8 +25,8 @@ resource "aws_security_group" "worker_inbound" {
 
   ingress {
     description = "web from alb"
-    from_port   = 31795
-    to_port     = 31795
+    from_port   = 31975
+    to_port     = 31975
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -62,8 +62,8 @@ resource "aws_security_group" "allow_http" {
   }
 
   egress {
-    from_port        = 31795
-    to_port          = 31795
+    from_port        = 31975
+    to_port          = 31975
     protocol         = "tcp"
     security_groups      = [aws_security_group.worker_inbound.id]
   }

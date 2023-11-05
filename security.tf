@@ -19,7 +19,7 @@ resource "aws_security_group" "management" {
 
 
 resource "aws_security_group" "worker_inbound" {
-  name        = "management_sg"
+  name        = "k8worker_web_inbound"
   description = "Allow web traffic"
   vpc_id      = aws_vpc.vpc.id
 

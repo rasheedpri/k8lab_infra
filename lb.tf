@@ -59,4 +59,3 @@ resource "aws_lb_listener" "k8workers" {
     target_group_arn = aws_lb_target_group.k8workers.arn
   }
   }
-}

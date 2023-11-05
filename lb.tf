@@ -14,7 +14,7 @@ resource "aws_lb" "alb" {
   name               = "weblb"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = [aws_security_group.allow_http.id]
+  security_groups    = [aws_security_group.alb.id]
   subnets            = [aws_subnet.pub_subnet1.id,aws_subnet.pub_subnet2.id]
 
   tags = {

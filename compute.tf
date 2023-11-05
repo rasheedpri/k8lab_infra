@@ -70,7 +70,7 @@ resource "aws_network_interface" "k8workers_az_b" {
 
 resource "aws_network_interface_sg_attachment" "k8workers_az_a" {
   count                = 1
-  security_group_id    = aws_security_group.worker_inbound.id
+  security_group_id    = aws_security_group.k8cluster.id
   network_interface_id = aws_network_interface.k8workers_az_a[count.index].id
 }
 
@@ -78,7 +78,7 @@ resource "aws_network_interface_sg_attachment" "k8workers_az_a" {
 
 resource "aws_network_interface_sg_attachment" "k8workers_az_b" {
   count                = 1
-  security_group_id    = aws_security_group.worker_inbound.id
+  security_group_id    = aws_security_group.k8cluster.id
   network_interface_id = aws_network_interface.k8workers_az_b[count.index].id
 }
 

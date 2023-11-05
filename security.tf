@@ -65,6 +65,14 @@ resource "aws_security_group" "alb" {
 
   }
 
+  ingress {
+    description = "allow http from internet"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+
+  }
   egress {
     from_port        = 31975
     to_port          = 31975

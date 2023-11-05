@@ -51,8 +51,8 @@ resource "aws_lb_target_group_attachment" "k8workers_az_b" {
 
 resource "aws_lb_listener" "k8workers" {
   load_balancer_arn = aws_lb.alb.arn
-  port              = "80"
-  protocol          = "HTTP"
+  port              = "443"
+  protocol          = "HTTPS"
 
   default_action {
     type             = "forward"

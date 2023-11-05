@@ -31,7 +31,7 @@ resource "aws_security_group" "k8cluster" {
     from_port   = 31975
     to_port     = 31975
     protocol    = "tcp"
-    security_groups      = [aws_security_group.alb.id]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   ingress {

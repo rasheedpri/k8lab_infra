@@ -46,7 +46,7 @@ resource "aws_security_group" "k8cluster" {
   tags = {
     Name = "Allow inbound  web traffic"
   }
-  depends_on = [ aws.aws_security_group.alb ]
+
 }
 
 # security group to allow appolcation load balancer inbound

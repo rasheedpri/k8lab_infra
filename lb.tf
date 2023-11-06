@@ -49,13 +49,14 @@ resource "aws_lb_target_group_attachment" "k8workers_az_b" {
 
 # creat listener for k8 workers
 
-resource "aws_lb_listener" "k8workers" {
-  load_balancer_arn = aws_lb.alb.arn
+resource "aws_lb_listener" "front_end" {
+  load_balancer_arn = aws_lb.front_end.arn
   port              = "443"
   protocol          = "HTTPS"
+  certificate_arn   = "arn:aws:acm:us-east-1:278004647125:certificate/dc2f58c4-bbd0-4eab-8a46-cc60901bb169"
 
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.k8workers.arn
   }
-  }
+}
